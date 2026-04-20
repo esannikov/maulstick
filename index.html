@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAULSTICK — The Operating System for AI Film</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #ffffff;
+  --secondary: #b0b0b0;
+  --bg: #111111;
+  --bg-2: #1a1a1a;
+  --accent: #FF6A3A;
+  --white: #ffffff;
+  --border: rgba(255,255,255,.08);
+  --font-heading: 'Space Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-body: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; overflow-x:hidden; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ── CONTAINER ── */
+.container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+@media(max-width:768px) { .container { padding: 0 24px; } }
+
+/* ── SECTION ── */
+.section { padding: 100px 0; position: relative; overflow: hidden; }
+.section-sm { padding: 60px 0; }
+@media(max-width:768px) { .section { padding: 64px 0; } .section-sm { padding: 40px 0; } }
+
+.section-border { border-top: 1px solid var(--border); }
+
+/* ── SECTION GRADIENTS ── */
+.section-glow { position: relative; }
+.section-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+}
+.section-glow > .container { position: relative; z-index: 1; }
+
+.glow-blue::before    { background: radial-gradient(ellipse 70% 50% at 0% 20%, rgba(59,130,246,.12), transparent 70%); }
+.glow-orange::before  { background: radial-gradient(ellipse 60% 60% at 90% 80%, rgba(255,106,58,.12), transparent 70%); }
+.glow-violet::before  { background: radial-gradient(ellipse 50% 70% at 10% 70%, rgba(139,92,246,.12), transparent 70%); }
+.glow-teal::before    { background: radial-gradient(ellipse 60% 50% at 80% 20%, rgba(45,212,191,.12), transparent 70%); }
+.glow-amber::before   { background: radial-gradient(ellipse 70% 40% at 50% 90%, rgba(251,191,36,.12), transparent 70%); }
+.glow-cyan::before    { background: radial-gradient(ellipse 50% 60% at 100% 50%, rgba(34,211,238,.12), transparent 70%); }
+.glow-rose::before    { background: radial-gradient(ellipse 60% 50% at 20% 30%, rgba(251,113,133,.12), transparent 70%); }
+.glow-emerald::before { background: radial-gradient(ellipse 55% 55% at 70% 60%, rgba(52,211,153,.12), transparent 70%); }
+.glow-indigo::before  { background: radial-gradient(ellipse 65% 45% at 30% 80%, rgba(99,102,241,.12), transparent 70%); }
+.glow-pink::before    { background: radial-gradient(ellipse 50% 50% at 85% 15%, rgba(236,72,153,.12), transparent 70%); }
+.glow-lime::before    { background: radial-gradient(ellipse 60% 50% at 15% 50%, rgba(163,230,53,.12), transparent 70%); }
+.glow-sky::before     { background: radial-gradient(ellipse 70% 60% at 60% 30%, rgba(56,189,248,.12), transparent 70%); }
+
+/* ── TYPOGRAPHY ── */
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(40px, 7vw, 100px);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+  color: var(--white);
+}
+.section-subtitle {
+  font-size: clamp(14px, 1.2vw, 16px);
+  color: var(--white);
+  line-height: 1.7;
+  max-width: 620px;
+}
+.label-text {
+  font-size: 14px;
+  color: var(--secondary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.text-large {
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 3.5vw, 48px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+}
+
+/* ── SECTION HEADER WITH IMAGE ── */
+.section-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 60px;
+}
+@media(max-width:900px) { .section-header { grid-template-columns: 1fr; } }
+.section-header .img-placeholder { width: 100%; height: 320px; border-radius: 4px; }
+@media(max-width:900px) { .section-header .img-placeholder { height: 220px; } }
+
+.delay-1 { } .delay-2 { } .delay-3 { } .delay-4 { } .delay-5 { } .delay-6 { }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  background-image: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,106,58,.12), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: rgba(255,255,255,.05);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  z-index: 0;
+}
+.hero-center { position: relative; z-index: 1; padding: 40px; }
+.hero-eyebrow {
+  font-size: 13px;
+  color: var(--secondary);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(100px, 16vw, 240px);
+  font-weight: 500;
+  line-height: 0.88;
+  letter-spacing: -0.07em;
+  color: var(--white);
+}
+.hero-tagline {
+  margin-top: 32px;
+  font-size: 15px;
+  color: var(--secondary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* ── SERVICE / MODULE BOXES ── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0;
+}
+.services-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.services-grid-5 { grid-template-columns: repeat(5, 1fr); }
+@media(max-width:1100px) { .services-grid-4 { grid-template-columns: repeat(2, 1fr); } .services-grid-5 { grid-template-columns: repeat(3, 1fr); } }
+@media(max-width:700px) { .services-grid-5 { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width:480px) { .services-grid-4, .services-grid-5 { grid-template-columns: 1fr; } }
+.service-box {
+  padding: 40px 30px;
+  border: 1px solid transparent;
+  transition: background .3s, border-color .3s;
+  position: relative;
+  overflow: hidden;
+}
+.service-box:hover { background: var(--bg-2); border-color: var(--border); }
+
+/* ── HOVER IMAGE REVEAL ── */
+.service-box[data-hover-img]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--hover-img);
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity .4s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+.service-box[data-hover-img]:hover::after { opacity: 1; }
+.service-box[data-hover-img]:hover .number,
+.service-box[data-hover-img]:hover .title,
+.service-box[data-hover-img]:hover .text { opacity: 0; transition: opacity .3s; }
+
+.bible-image { width: 100%; border-radius: 4px; display: block; }
+
+.card-portrait { border: 1px solid var(--border); overflow: hidden; transition: border-color .3s, transform .3s; }
+.card-portrait:hover { border-color: rgba(255,255,255,.15); transform: translateY(-2px); }
+.card-portrait img { width: 100%; height: auto; display: block; }
+
+.service-box .number { font-size: 14px; color: var(--secondary); font-weight: 500; margin-bottom: 20px; letter-spacing: 1px; }
+.service-box .title { font-family: var(--font-heading); font-size: 22px; font-weight: 500; line-height: 1.3; margin-bottom: 12px; letter-spacing: -0.02em; }
+.service-box .text { font-size: 14px; color: var(--secondary); line-height: 1.7; }
+
+/* ── SPLIT LAYOUT ── */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+@media(max-width:900px) { .split { grid-template-columns: 1fr; gap: 40px; } }
+.split-wide { grid-template-columns: 1.2fr 1fr; }
+.split-narrow { grid-template-columns: 1fr 1.5fr; }
+
+/* ── PIPELINE CHAIN ── */
+.chain-wrap { display:flex; flex-wrap:wrap; gap:4px; align-items:center; }
+.chain-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  color: rgba(255,255,255,.75);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 2px;
+  padding: 10px 18px;
+  white-space: nowrap;
+}
+.chain-tag .c-num { font-size: 12px; color: var(--secondary); }
+.chain-tag.gate { color: var(--accent); background: rgba(255,106,58,.08); border-color: rgba(255,106,58,.3); }
+.chain-arrow { font-size: 15px; color: rgba(255,255,255,.2); padding: 0 6px; flex-shrink: 0; }
+
+/* ── IMG PLACEHOLDER ── */
+.img-placeholder {
+  background: var(--bg-2);
+  border: 1px dashed rgba(255,255,255,.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: rgba(255,255,255,.2);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── CARD GRID ── */
+.card-grid { display: grid; gap: 24px; }
+.card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+@media(max-width:900px) { .card-grid-3, .card-grid-4 { grid-template-columns: 1fr 1fr; } }
+@media(max-width:768px) { .card-grid-2, .card-grid-3, .card-grid-4 { grid-template-columns: 1fr; } }
+.card { border: 1px solid var(--border); overflow: hidden; transition: border-color .3s, transform .3s; }
+.card:hover { border-color: rgba(255,255,255,.15); transform: translateY(-2px); }
+.card-title { font-family: var(--font-heading); font-size: 17px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 8px; }
+.card-text { font-size: 14px; color: var(--secondary); line-height: 1.7; }
+
+/* ── DEBATE PANEL ── */
+.debate-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+}
+@media(max-width:1100px) { .debate-grid { grid-template-columns: repeat(3, 1fr); } }
+@media(max-width:700px) { .debate-grid { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width:480px) { .debate-grid { grid-template-columns: 1fr; } }
+.debate-item {
+  padding: 32px 26px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  transition: background .3s;
+}
+.debate-item:last-child { border-right: none; }
+.debate-item:hover { background: var(--bg-2); }
+.debate-item .d-code { font-size: 12px; color: var(--accent); font-weight: 500; letter-spacing: 2px; margin-bottom: 16px; }
+.debate-item .d-name { font-family: var(--font-heading); font-size: 16px; font-weight: 500; margin-bottom: 10px; }
+.debate-item .d-desc { font-size: 13px; color: var(--secondary); line-height: 1.7; }
+
+/* ── CASCADE ── */
+.cascade-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.cascade-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.cascade-dot.synced { background: #4ade80; }
+.cascade-dot.stale { background: #f87171; }
+.cascade-dot.check { background: #fbbf24; }
+.cascade-name { font-family: var(--font-heading); font-weight: 500; font-size: 15px; min-width: 200px; }
+.cascade-desc { font-size: 13px; color: var(--secondary); }
+
+/* ── STORYPOLE ── */
+.sp-layout { display: grid; grid-template-columns: 280px 1fr; gap: 60px; align-items: start; }
+@media(max-width:768px) { .sp-layout { grid-template-columns: 1fr; } }
+.sp-block { margin-bottom: 28px; }
+.sp-block-title { font-size: 14px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; color: var(--accent); }
+.sp-block-text { font-size: 14px; color: var(--secondary); line-height: 1.8; }
+.sp-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.sp-tag { font-size: 14px; color: rgba(255,255,255,.7); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 2px; padding: 5px 12px; line-height: 1.4; }
+.sp-tag.soft { border-color: rgba(251,191,36,.25); color: rgba(251,191,36,.8); }
+.sp-tag.hard { border-color: rgba(251,113,133,.25); color: rgba(251,113,133,.8); }
+.sp-tag.c1 { background:rgba(99,102,241,.12); border-color:rgba(99,102,241,.35); color:rgba(165,167,255,.9); }
+.sp-tag.c2 { background:rgba(45,212,191,.10); border-color:rgba(45,212,191,.3); color:rgba(94,234,212,.9); }
+.sp-tag.c3 { background:rgba(251,191,36,.10); border-color:rgba(251,191,36,.3); color:rgba(253,211,100,.9); }
+.sp-tag.c4 { background:rgba(236,72,153,.10); border-color:rgba(236,72,153,.3); color:rgba(249,133,196,.9); }
+.sp-tag.c5 { background:rgba(52,211,153,.10); border-color:rgba(52,211,153,.3); color:rgba(110,231,183,.9); }
+.sp-tag.c6 { background:rgba(251,113,133,.10); border-color:rgba(251,113,133,.3); color:rgba(253,164,175,.9); }
+.sp-tag.c7 { background:rgba(56,189,248,.10); border-color:rgba(56,189,248,.3); color:rgba(125,211,252,.9); }
+
+/* ── KNOWLEDGE ── */
+.k-col-list { list-style: none; }
+.k-col-list li { font-size: 14px; color: var(--secondary); line-height: 2.4; border-bottom: 1px solid rgba(255,255,255,.04); padding: 2px 0; }
+.k-col-list li::before { content: "— "; color: rgba(255,255,255,.15); }
+
+.accent-line { width: 40px; height: 3px; background: var(--accent); margin-bottom: 24px; }
+
+/* ── QUALITY SUBSECTION ── */
+.quality-sub { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--border); }
+.quality-sub:first-of-type { margin-top: 40px; padding-top: 0; border-top: none; }
+.quality-eyebrow {
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+.quality-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+/* ── WHERE WE FIT ── */
+.fit-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: 1px solid var(--border); }
+@media(max-width:900px) { .fit-grid { grid-template-columns: 1fr; } }
+.fit-cell { padding: 36px 32px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.fit-cell:nth-child(2n) { border-right: none; }
+@media(max-width:900px) { .fit-cell { border-right: none; } }
+.fit-category {
+  font-size: 11px;
+  color: var(--secondary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.fit-name {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.fit-examples { font-size: 13px; color: rgba(255,255,255,.55); margin-bottom: 14px; line-height: 1.6; }
+.fit-position {
+  font-size: 13px;
+  color: var(--white);
+  line-height: 1.7;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.fit-position b { color: var(--accent); font-weight: 500; }
+
+/* ── CTA ── */
+.cta-wrap { text-align: center; padding: 60px 20px; }
+.cta-title {
+  font-family: var(--font-heading);
+  font-size: clamp(48px, 8vw, 120px);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+  color: var(--white);
+  margin-bottom: 28px;
+}
+.cta-sub { font-size: 16px; color: var(--secondary); max-width: 560px; margin: 0 auto 36px; line-height: 1.7; }
+.cta-button {
+  display: inline-block;
+  padding: 18px 40px;
+  border: 1px solid var(--accent);
+  background: rgba(255,106,58,.08);
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: background .3s, transform .2s;
+}
+.cta-button:hover { background: rgba(255,106,58,.18); transform: translateY(-1px); }
+
+/* ── SHOWCASE ── */
+.showcase-block { margin-bottom: 80px; }
+.showcase-block:last-child { margin-bottom: 0; }
+.showcase-header { display: flex; align-items: baseline; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
+.showcase-name { font-family: var(--font-heading); font-size: clamp(28px, 4vw, 44px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--white); }
+.showcase-meta { font-size: 12px; color: var(--secondary); letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
+.showcase-grid { display: grid; gap: 2px; }
+.showcase-grid img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease, filter .3s ease; }
+.showcase-grid > div { overflow: hidden; position: relative; background: var(--bg-2); }
+.showcase-grid > div:hover img { transform: scale(1.03); filter: brightness(1.08); }
+.showcase-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.showcase-grid-3 { grid-template-columns: repeat(3, 1fr); }
+@media(max-width:900px) { .showcase-grid-4 { grid-template-columns: repeat(3, 1fr); } }
+@media(max-width:600px) { .showcase-grid-4, .showcase-grid-3 { grid-template-columns: repeat(2, 1fr); } }
+.showcase-tile-v { aspect-ratio: 3 / 4; }
+.showcase-tile-h { aspect-ratio: 16 / 9; }
+.showcase-tile-s { aspect-ratio: 1 / 1; }
+
+/* ── FOOTER ── */
+.footer { padding: 80px 0 60px; border-top: 1px solid var(--border); text-align: center; }
+.footer-logo {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: rgba(255,255,255,.25);
+  margin-bottom: 16px;
+}
+.footer p { font-size: 13px; color: var(--secondary); letter-spacing: 0.5px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 1. HERO                                    -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"><img src="assets/images/back.png" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.2;display:block"></div>
+  <div class="hero-center">
+    <div class="hero-eyebrow reveal-up">The operating system for AI film</div>
+    <h1 class="hero-title reveal-up delay-1">Maulstick</h1>
+    <p class="reveal-up delay-2" style="margin-top:32px;font-family:var(--font-heading);font-size:clamp(18px,2vw,24px);font-weight:500;color:var(--white);letter-spacing:-0.01em;max-width:860px;margin-left:auto;margin-right:auto;line-height:1.35">AI video models are finally cinema-ready. The workflow around them isn't. Maulstick turns scattered prompts into a real production pipeline &mdash; from project bible to editor timeline, in your own files.</p>
+    <p class="hero-tagline reveal-up delay-3">17 phases &middot; 5 formats &middot; One pipeline</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 2. THE PAIN                                -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section section-border section-glow glow-rose">
+  <div class="container">
+    <div style="margin-bottom:56px;max-width:900px">
+      <div class="label-text reveal-up">The Problem</div>
+      <h2 class="section-title reveal-up delay-1">The story gets lost<br>in iteration.</h2>
+      <p class="section-subtitle reveal-up delay-2" style="margin-top:24px">AI production is deeply iterative &mdash; many variants per shot, many branches per scene, many revisions per Bible. Without a system that holds the whole together, the author drifts between their own decisions and the story fragments along the way.</p>
+    </div>
+    <div class="services-grid services-grid-4 reveal-up delay-3">
+      <div class="service-box"><div class="number">01</div><div class="title">Fragmented vision</div><div class="text">Bible, script, direction, style, characters &mdash; each lives in a different doc, app, or head. Without a single source of truth, every scene renders its own slightly different version of the world.</div></div>
+      <div class="service-box"><div class="number">02</div><div class="title">Story drift across revisions</div><div class="text">The script evolves. Direction lags two versions behind. Prompts still reference a cut scene. The final edit tells one story; the production rendered another.</div></div>
+      <div class="service-box"><div class="number">03</div><div class="title">Iteration without memory</div><div class="text">Twenty variants per shot, five script drafts, three style tests. Which decision lives? Which was dropped, and why? Without a ledger, every revision costs context.</div></div>
+      <div class="service-box"><div class="number">04</div><div class="title">Ungrounded craft</div><div class="text">AI renders &laquo;beautiful&raquo; by default. But which angle, which rhythm, which light was actually the right choice? Beauty without craft reasoning becomes slop by the hundredth shot.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 3. THE PRODUCT                             -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section section-border section-glow glow-blue">
+  <div class="container">
+    <div style="margin-bottom:48px;max-width:900px">
+      <div class="label-text reveal-up">The Product</div>
+      <h2 class="section-title reveal-up delay-1">An operating system<br>for AI film.</h2>
+      <p class="section-subtitle reveal-up delay-2" style="margin-top:24px">Maulstick is built on three things that don&rsquo;t move &mdash; the file system you own, the human in control, and the AI agent that reads, writes, and checks. Everything else is built on top of these three.</p>
+    </div>
+
+    <div class="reveal-up delay-2" style="margin-bottom:56px">
+      <img src="assets/images/main.png" alt="Three entities: File System, Human, AI Agent" style="width:100%;display:block;mask-image:radial-gradient(ellipse 82% 78% at 50% 50%, black 45%, transparent 88%);-webkit-mask-image:radial-gradient(ellipse 82% 78% at 50% 50%, black 45%, transparent 88%)">
+    </div>
+
+    <div class="services-grid reveal-up delay-3" style="grid-template-columns:repeat(3,1fr)">
+      <div class="service-box"><div class="number">01</div><div class="title">File System</div><div class="text">Every artefact &mdash; Bible, script, direction, prompts, canvas, timeline &mdash; lives as plain Markdown in an Obsidian vault. No database, no lock-in, open formats. You own every file on your own disk.</div></div>
+      <div class="service-box"><div class="number">02</div><div class="title">Human</div><div class="text">You make every creative call. Three human gates pause the pipeline &mdash; after script, after direction, after generation. The agent never overwrites your decisions without explicit approval.</div></div>
+      <div class="service-box"><div class="number">03</div><div class="title">AI Agent</div><div class="text">Reads files, proposes, generates, reviews. Three specialised roles collaborate inside: <b style="color:var(--white)">Producer</b> plans and routes, <b style="color:var(--white)">Critic</b> reviews and scores, <b style="color:var(--white)">StoryPole</b> tracks world state.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 4. WHY NOW                                 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section section-border section-glow glow-amber">
+  <div class="container">
+    <div style="margin-bottom:56px;max-width:900px">
+      <div class="label-text reveal-up">Market Timing</div>
+      <h2 class="section-title reveal-up delay-1">The window<br>is open.</h2>
+      <p class="section-subtitle reveal-up delay-2" style="margin-top:24px">For the first time, the pieces needed for serious AI film line up. The models are ready. The workflow isn&rsquo;t. The layer that unifies them is the prize.</p>
+    </div>
+    <div class="services-grid reveal-up delay-3" style="grid-template-columns:repeat(3,1fr)">
+      <div class="service-box"><div class="number">01</div><div class="title">Quality is no longer the blocker</div><div class="text">Video models have crossed into editorial-grade output. Footage from Seedance, Veo, Kling 2 and peers holds up on a real screen. The generation problem is substantially solved.</div></div>
+      <div class="service-box"><div class="number">02</div><div class="title">Workflow is the new blocker</div><div class="text">Everything around generation &mdash; Bible, script review, style lock, world state, editor handoff &mdash; is still glued by hand from a dozen disconnected tools. That is the bottleneck now.</div></div>
+      <div class="service-box"><div class="number">03</div><div class="title">The operating layer is the prize</div><div class="text">When models become a commodity, value shifts up the stack &mdash; to the platform that encodes craft, orchestrates generation, and owns the pipeline end to end.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 4. SHOWCASE (PROOF)                        -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section section-border section-glow glow-orange">
+  <div class="container">
+    <div style="margin-bottom:72px;max-width:900px">
+      <div class="label-text reveal-up">Proof &middot; Demo projects</div>
+      <h2 class="section-title reveal-up delay-1">Built on<br>the system.</h2>
+      <p class="section-subtitle reveal-up delay-2" style="margin-top:24px">These are demo projects produced entirely inside Maulstick. Every frame &mdash; from first Bible entry to final timeline &mdash; came through the same pipeline shown on this page. No external tools, no manual reassembly, no stitching work.</p>
+    </div>
+
+    <div class="showcase-block reveal-up delay-2">
+      <div class="showcase-header">
+        <div class="showcase-name">Tesla</div>
+        <div class="showcase-meta">Biographical short &middot; 16:9 &middot; In production</div>
+      </div>
+      <div class="showcase-grid showcase-grid-4">
+        <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/tesla6.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/tesla7.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/tesla10.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/tesla12.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/tesla14.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/tesla16.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/tesla20.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/tesla21.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/tesla22.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/tesla23.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/tesla_poster_nattow.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/hf_20260129_174423_2bb5b644-1538-4aca-a211-784443916e41.png" alt=""></div>
+      </div>
+    </div>
+
+    <div class="showcase-block reveal-up delay-2">
+      <div class="showcase-header">
+        <div class="showcase-name">Letters</div>
+        <div class="showcase-meta">Episodic drama &middot; 16:9 &middot; In production</div>
+      </div>
+      <div class="showcase-grid showcase-grid-4">
+        <div class="showcase-tile-v"><img src="assets/images/showcase/LETTERS/let2.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/LETTERS/let4.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/LETTERS/let6.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/LETTERS/let9.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/LETTERS/let10.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/LETTERS/let11.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/LETTERS/let12.jpg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/LETTERS/flower.png" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/LETTERS/scene1_birds.png" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/LETTERS/mari_at_post.png" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/LETTERS/hf_20260130_233813_3caffbf9-53d3-43d0-93d4-806e79a01cb8.png.jpeg" alt=""></div>
+        <div class="showcase-tile-v"><img src="assets/images/showcase/LETTERS/hf_20260203_204935_28d90991-d61a-401c-9c74-c7b282aa7eda.png" alt=""></div>
+      </div>
+    </div>
+
+    <div class="showcase-block reveal-up delay-2">
+      <div class="showcase-header">
+        <div class="showcase-name">Mars</div>
+        <div class="showcase-meta">Sci-fi short &middot; 16:9 &middot; In production</div>
+      </div>
+      <div class="showcase-grid showcase-grid-3">
+        <div class="showcase-tile-h"><img src="assets/images/showcase/MARS/1.jpg" alt=""></div>
+        <div class="showcase-tile-h"><img src="assets/images/showcase/MARS/2.jpg" alt=""></div>
+        <div class="showcase-tile-h"><img src="assets/images/showcase/MARS/6.jpg" alt=""></div>
+        <div class="showcase-tile-h"><img src="assets/images/showcase/MARS/7.jpg" alt=""></div>
+        <div class="showcase-tile-h"><img src="assets/images/showcase/MARS/8.jpg" alt=""></div>
+        <div class="showcase-tile-h"><img src="assets/images/showcase/MARS/9.jpg" alt=""></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 6. HOW IT WORKS                            -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section section-border section-glow glow-violet">
+  <div class="container">
+    <div style="margin-bottom:60px;max-width:900px">
+      <div class="label-text reveal-up">How it works</div>
+      <h2 class="section-title reveal-up delay-1">Bible to<br>editor timeline.</h2>
+      <p class="section-subtitle reveal-up delay-2" style="margin-top:24px">Four stages, 17 fine-grained phases, three human approval gates. The agent never runs a stage without the upstream file it depends on &mdash; and never skips a gate.</p>
+    </div>
+
+    <!-- Four stages overview -->
+    <div class="services-grid services-grid-4 reveal-up delay-3" style="margin-bottom:60px">
+      <div class="service-box"><div class="number">Stage 1</div><div class="title">Project Bible</div><div class="text">Nine structured docs lock the universe &mdash; synopsis, vision, style, characters, world, sound, tech, rules, ontology.</div></div>
+      <div class="service-box"><div class="number">Stage 2</div><div class="title">Script &amp; Direction</div><div class="text">Screenplay, shot-by-shot direction, transition audit. Two human gates before generation touches a single frame.</div></div>
+      <div class="service-box"><div class="number">Stage 3</div><div class="title">Visual &amp; Generation</div><div class="text">Style test, prompts, canvas storyboard, shot-by-shot generation across 30+ models with character lock from the Bible.</div></div>
+      <div class="service-box"><div class="number">Stage 4</div><div class="title">Assembly &amp; Handoff</div><div class="text">Rough cut in-browser, subtitles, final review, one-click XML / FCPXML export to Premiere Pro or DaVinci Resolve.</div></div>
+    </div>
+
+    <!-- Full pipeline chain -->
+    <div class="label-text reveal-up" style="margin-bottom:20px">All 17 phases</div>
+    <div class="chain-wrap reveal-up delay-2" style="margin-bottom:16px">
+      <span class="chain-tag"><span class="c-num">00</span> Bible</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">01</span> Script</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">02</span> Script Review</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag gate">&#x2299; Human Gate</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">03</span> Direction</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">04</span> Transition Audit</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">05</span> Direction Review</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag gate">&#x2299; Human Gate</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">06</span> Consistency Pairs</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">07</span> Style Test</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">08</span> Image Prompts</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">09</span> Prompts JSON</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">10</span> Canvas Storyboard</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">11</span> Production Docs</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">12</span> Generation</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag gate">&#x2299; Human Gate</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">13</span> Iteration</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">14</span> Subtitles</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">15</span> Final Review</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">16</span> Editor Handoff</span><span class="chain-arrow">&rarr;</span>
+      <span class="chain-tag"><span class="c-num">17</span> Final Edit</span>
+    </div>
+
+    <!-- Visual — storyboard + video export -->
+    <div class="split reveal-up delay-3" style="margin-top:80px">
+      <div class="card-portrait">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">
+          <img src="assets/images/mari1.png" alt="Sketch Mode" style="width:100%;height:auto;display:block">
+          <img src="assets/images/mari2.png" alt="Full Render" style="width:100%;height:auto;display:block">
+        </div>
+        <div style="padding:24px"><div class="card-title">Sketch &rarr; full render</div><div class="card-text">Two-mode storyboarding. Fast cheap sketch on the left to test composition, then full-quality render on the right with style consistency from Style.md &mdash; across 30+ models including Flux, Reve, Kling, Wan, Seedance, and Veo.</div></div>
+      </div>
+      <div class="card-portrait">
+        <img src="assets/images/cut3.png" alt="Editor Handoff">
+        <div style="padding:24px"><div class="card-title">Timeline, not footage</div><div class="card-text">The pipeline delivers an assembled timeline, not a folder of clips. One-click export to XML / FCPXML &mdash; cuts, durations, and layers land intact in Premiere Pro or DaVinci Resolve.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 7. FIVE FORMATS                            -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section section-border section-glow glow-cyan">
+  <div class="container">
+    <div style="margin-bottom:40px;max-width:900px">
+      <div class="label-text reveal-up">Production Domains</div>
+      <h2 class="section-title reveal-up delay-1">Five formats.<br>One system.</h2>
+      <p class="section-subtitle reveal-up delay-2" style="margin-top:24px">The same pipeline adapts to horizontal film, vertical drama, advertising, poster key art, and character design. One Bible per project &mdash; five ways to ship.</p>
+    </div>
+    <div class="reveal-up delay-2" style="margin-bottom:48px">
+      <img src="assets/images/5types.png" alt="Five formats" style="width:100%;display:block;mask-image:linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);-webkit-mask-image:linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)">
+    </div>
+    <div class="services-grid services-grid-5 reveal-up delay-3">
+      <div class="service-box" data-hover-img="assets/images/domain_series.png"><div class="number">16:9</div><div class="title">Series / Film</div><div class="text">3&ndash;10 min episodes or 90+ min features. Full pipeline from Bible to XML timeline.</div></div>
+      <div class="service-box" data-hover-img="assets/images/domain_micro.png"><div class="number">9:16</div><div class="title">Micro-Drama</div><div class="text">Vertical 60&ndash;120s episodes. Fast cuts, close-ups, unlocked dramaturgy. Up to 100 EP/season.</div></div>
+      <div class="service-box" data-hover-img="assets/images/domain_ad.png"><div class="number">AD</div><div class="title">Advertising</div><div class="text">Brief, concept, scripts per format (6s/15s/30s/60s), storyboard, style test, delivery.</div></div>
+      <div class="service-box" data-hover-img="assets/images/domain_poster.png"><div class="number">KEY</div><div class="title">Poster / Key Art</div><div class="text">Analysis across 12 axes or generation from scratch. Pattern library of 47+ visual cards.</div></div>
+      <div class="service-box" data-hover-img="assets/images/domain_character.png"><div class="number">CHR</div><div class="title">Character Design</div><div class="text">Parametric constructor. 10 axes: face, body, skin, hair, expression, posture, age, costume.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 8. GROUNDED CRAFT                          -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section section-border section-glow glow-pink">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="label-text reveal-up">Grounded Craft</div>
+        <h2 class="section-title reveal-up delay-1">Every choice<br>has a reason.</h2>
+        <p class="section-subtitle reveal-up delay-2" style="margin-top:24px">The knowledge inside Maulstick is not proprietary &mdash; it draws on published film theory, craft literature, and empirical datasets that are openly available. What is less common is that the material is structured. Any decision the pipeline makes can be traced back to a parameter, a principle, or a paper.</p>
+      </div>
+      <div class="reveal-up delay-2">
+        <img src="assets/images/knwoledge.jpg" alt="Knowledge system" style="width:100%;display:block;border-radius:4px">
+      </div>
+    </div>
+
+    <div class="services-grid services-grid-5 reveal-up delay-3" style="margin-bottom:40px">
+      <div class="service-box"><div class="number">60+</div><div class="title">Cited academic &amp; professional sources</div><div class="text">Every recommendation in the knowledge layer traces back to a named source &mdash; cinematography research, perception studies, directing and screenwriting manuals, colour and sound theory. Nothing invented, every claim citable.</div></div>
+      <div class="service-box"><div class="number">27 &times; 8</div><div class="title">Cinematographic DNA matrix</div><div class="text">A recipe layer for scene visualisation. Twenty-seven emotional states mapped across eight craft domains &mdash; composition, lens, light, colour, movement, editing, sound, recipe. The agent picks intent; the matrix returns a grounded parameter combination, not a guess.</div></div>
+      <div class="service-box"><div class="number">917 + 792K</div><div class="title">Empirical datasets</div><div class="text">Nine JSON datasets: 917 screenplays structurally parsed, 792K CineScale shots, 22 comedy structures, 15 tropes, 11 character dynamics, 6 emotion arcs. Evidence, not opinion.</div></div>
+      <div class="service-box"><div class="number">25</div><div class="title">Model-specific prompt guides</div><div class="text">Every generator has its own dialect. Flux, Reve, Kling, Wan, Seedance, Veo &mdash; each with tested patterns and documented edge cases, not a generic template.</div></div>
+      <div class="service-box"><div class="number">155</div><div class="title">Sources Radar scans daily</div><div class="text">An autonomous research agent keeps the library current: 127 Telegram channels, 28 RSS feeds, arXiv cs.AI/cs.CV/cs.GR/cs.MM, Crossref, OpenAlex.</div></div>
+    </div>
+
+    <div class="reveal-up delay-3" style="display:grid;grid-template-columns:1fr 1fr;gap:20px 60px;margin-bottom:60px">
+      <div class="sp-block" style="margin-bottom:0">
+        <div class="sp-block-title">Wiki coverage</div>
+        <div class="sp-tags">
+          <span class="sp-tag c1">Directing</span>
+          <span class="sp-tag c2">Writing</span>
+          <span class="sp-tag c3">Camera &amp; Light</span>
+          <span class="sp-tag c4">Color</span>
+          <span class="sp-tag c5">Sound</span>
+          <span class="sp-tag c6">Poster</span>
+          <span class="sp-tag c7">Emotion &amp; Structure</span>
+        </div>
+      </div>
+      <div class="sp-block" style="margin-bottom:0">
+        <div class="sp-block-title">Datasets inside</div>
+        <div class="sp-tags">
+          <span class="sp-tag c2">Comedy structures (22)</span>
+          <span class="sp-tag c4">Dramedy tropes (15)</span>
+          <span class="sp-tag c1">Character dynamics (11)</span>
+          <span class="sp-tag c5">Emotion arcs (6)</span>
+          <span class="sp-tag c3">CineScale 792K shots</span>
+          <span class="sp-tag c7">Screenplay structure (917)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Learning Mode -->
+    <div class="reveal-up delay-3" style="padding:36px 40px;border:1px solid rgba(255,106,58,.25);background:rgba(255,106,58,.04);border-radius:2px">
+      <div style="display:flex;gap:40px;align-items:center;flex-wrap:wrap">
+        <div style="flex:1;min-width:240px">
+          <div style="font-size:12px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;font-weight:500;margin-bottom:14px">Learning Mode</div>
+          <h3 style="font-family:var(--font-heading);font-size:clamp(24px,2.8vw,36px);font-weight:500;letter-spacing:-0.02em;line-height:1.1">A system that teaches.</h3>
+        </div>
+        <div style="flex:2;min-width:320px">
+          <p style="font-size:15px;color:rgba(255,255,255,.8);line-height:1.7">A separate mode opens the full knowledge layer to students, enthusiasts, and professionals who want to deepen their craft. Walk through wiki modules in reading order. Ask by problem &mdash; &laquo;why does this shot feel flat?&raquo; &mdash; and get an answer grounded in specific parameters and cited sources. Same library the pipeline uses, exposed for study rather than production.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 9. QUALITY LAYER                           -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section section-border section-glow glow-emerald">
+  <div class="container">
+    <div style="margin-bottom:40px;max-width:900px">
+      <div class="label-text reveal-up">The Quality Layer</div>
+      <h2 class="section-title reveal-up delay-1">Catch breaks<br>before the render.</h2>
+      <p class="section-subtitle reveal-up delay-2" style="margin-top:24px">Generation is expensive. Fixing a break after the render is more expensive. Four overlapping systems guard every project &mdash; rules, interpretation, world state, and learning.</p>
+    </div>
+
+    <!-- A. Rule review -->
+    <div class="quality-sub">
+      <div class="quality-eyebrow reveal-up">A &middot; Rule Review</div>
+      <h3 class="quality-heading reveal-up delay-1">Automated checks at three stages.</h3>
+      <p class="section-subtitle reveal-up delay-2" style="margin-bottom:40px">The earlier a problem is found, the cheaper it is to fix. Rule checks cover continuity, shot grammar, technical coherence.</p>
+      <div class="services-grid reveal-up delay-3">
+        <div class="service-box"><div class="number">Stage 1</div><div class="title">Script Review</div><div class="text">Continuity, geography, prop tracking, pacing prediction, character presence.</div></div>
+        <div class="service-box"><div class="number">Stage 2</div><div class="title">Direction Review</div><div class="text">180&deg; axis rule, shot size jumps, 30&deg; rule, aesthetic coherence, prompt validation.</div></div>
+        <div class="service-box"><div class="number">Stage 3</div><div class="title">Full Review</div><div class="text">Audiovisual quality, emotional impact, rhythm &mdash; scored across 6 FilmEval dimensions.</div></div>
+      </div>
+    </div>
+
+    <!-- B. Debate engine -->
+    <div class="quality-sub">
+      <div class="section-header" style="grid-template-columns:1fr 1.4fr;gap:48px;margin-bottom:32px">
+        <div>
+          <div class="quality-eyebrow reveal-up">B &middot; Debate Engine</div>
+          <h3 class="quality-heading reveal-up delay-1">Where rules end, interpretation begins.</h3>
+          <p class="section-subtitle reveal-up delay-2" style="margin-top:16px">Five independent AI reviewers analyze the script from different craft perspectives. A judge model weighs their arguments and delivers a single scored verdict.</p>
+        </div>
+        <div class="reveal-up delay-2">
+          <img src="assets/images/debate.jpg" alt="Debate engine" style="width:100%;display:block;border-radius:4px;mask-image:radial-gradient(ellipse 88% 78% at 50% 44%, black 45%, transparent 85%);-webkit-mask-image:radial-gradient(ellipse 88% 78% at 50% 44%, black 45%, transparent 85%)">
+        </div>
+      </div>
+      <div class="debate-grid reveal-up delay-3">
+        <div class="debate-item"><div class="d-code">CM</div><div class="d-name">Comedy Analyst</div><div class="d-desc">Humor mechanics, jokes-per-minute, comedic timing, rule of three, callback patterns.</div></div>
+        <div class="debate-item"><div class="d-code">DL</div><div class="d-name">Dialogue Doctor</div><div class="d-desc">Character voice consistency, subtext layers, natural speech, power dynamics.</div></div>
+        <div class="debate-item"><div class="d-code">ST</div><div class="d-name">Structure Architect</div><div class="d-desc">Three-act arc, turning points, setup-payoff, act proportions, midpoint strength.</div></div>
+        <div class="debate-item"><div class="d-code">AU</div><div class="d-name">Audience Proxy</div><div class="d-desc">Engagement map, boredom zones, hook moments, emotional peaks, recommendation score.</div></div>
+        <div class="debate-item"><div class="d-code">NR</div><div class="d-name">Narration Analyst</div><div class="d-desc">Voice-over rhythm, narrator persona, narration-to-action ratio, grounded voice.</div></div>
+      </div>
+      <div class="reveal-up delay-3" style="margin-top:20px;padding:18px 24px;border:1px solid rgba(255,106,58,.25);background:rgba(255,106,58,.04);border-radius:2px;display:flex;align-items:center;gap:14px">
+        <span style="font-size:11px;color:var(--accent);font-weight:500;letter-spacing:2px">+ JUDGE</span>
+        <span style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.5">A senior judge model weighs all five perspectives and outputs a single scored verdict with per-dimension feedback.</span>
+      </div>
+    </div>
+
+    <!-- C. StoryPole -->
+    <div class="quality-sub">
+      <div class="quality-eyebrow reveal-up">C &middot; StoryPole &mdash; World State</div>
+      <h3 class="quality-heading reveal-up delay-1">After 15 scenes, manual tracking fails.</h3>
+      <p class="section-subtitle reveal-up delay-2" style="margin-bottom:32px">StoryPole extracts world state scene-by-scene &mdash; who's where, who knows what, which objects still exist &mdash; and checks it against hard and soft consistency rules.</p>
+      <div class="reveal-up delay-3" style="display:grid;grid-template-columns:1fr 1fr;gap:28px 60px">
+        <div class="sp-block" style="margin-bottom:0">
+          <div class="sp-block-title" style="color:rgba(165,167,255,.9)">Characters</div>
+          <div class="sp-tags">
+            <span class="sp-tag c1">Location</span>
+            <span class="sp-tag c1">Emotional state (16)</span>
+            <span class="sp-tag c1">Inventory</span>
+            <span class="sp-tag c1">Knowledge graph</span>
+            <span class="sp-tag c1">seen / told / inferred</span>
+            <span class="sp-tag c1">Social memory</span>
+            <span class="sp-tag c1">want / need / wound / stage</span>
+          </div>
+        </div>
+        <div class="sp-block" style="margin-bottom:0">
+          <div class="sp-block-title" style="color:rgba(94,234,212,.9)">Locations</div>
+          <div class="sp-tags">
+            <span class="sp-tag c2">INT / EXT</span>
+            <span class="sp-tag c2">Time of day</span>
+            <span class="sp-tag c2">Atmosphere (12)</span>
+            <span class="sp-tag c2">Valence</span>
+            <span class="sp-tag c2">Who is present</span>
+            <span class="sp-tag c2">Objects placed</span>
+          </div>
+        </div>
+        <div class="sp-block" style="margin-bottom:0">
+          <div class="sp-block-title" style="color:rgba(253,211,100,.9)">Objects</div>
+          <div class="sp-tags">
+            <span class="sp-tag c3">Owner</span>
+            <span class="sp-tag c3">Position</span>
+            <span class="sp-tag c3">active</span>
+            <span class="sp-tag c3">damaged</span>
+            <span class="sp-tag c3">lost / destroyed</span>
+            <span class="sp-tag c3">Explicit recovery</span>
+          </div>
+        </div>
+        <div class="sp-block" style="margin-bottom:0">
+          <div class="sp-block-title" style="color:rgba(253,164,175,.9)">Consistency Checks</div>
+          <div class="sp-tags">
+            <span class="sp-tag hard">Teleportation</span>
+            <span class="sp-tag hard">Ghost objects</span>
+            <span class="sp-tag hard">Impossible knowledge</span>
+            <span class="sp-tag hard">Time paradox</span>
+            <span class="sp-tag soft">Unmotivated arc</span>
+            <span class="sp-tag soft">Emotion jumps</span>
+            <span class="sp-tag soft">Relationship leaps</span>
+            <span class="sp-tag soft">Social memory gaps</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- D. Feedback loop -->
+    <div class="quality-sub">
+      <div class="quality-eyebrow reveal-up">D &middot; Feedback Loop</div>
+      <h3 class="quality-heading reveal-up delay-1">Change detection &amp; self-learning.</h3>
+      <p class="section-subtitle reveal-up delay-2" style="margin-bottom:32px">Change the script and the system knows exactly which downstream files are now stale. Repeated issues across projects trigger rule proposals &mdash; only humans approve changes.</p>
+
+      <div class="split reveal-up delay-3" style="grid-template-columns:1fr 1fr">
+        <!-- Cascade -->
+        <div>
+          <div class="sp-block-title" style="margin-bottom:18px">Dependency cascade</div>
+          <div style="display:flex;gap:20px;margin-bottom:18px;font-size:12px;color:var(--secondary);letter-spacing:1px;text-transform:uppercase">
+            <span style="display:flex;align-items:center;gap:8px"><span class="cascade-dot synced"></span> Synced</span>
+            <span style="display:flex;align-items:center;gap:8px"><span class="cascade-dot check"></span> Check</span>
+            <span style="display:flex;align-items:center;gap:8px"><span class="cascade-dot stale"></span> Stale</span>
+          </div>
+          <div class="cascade-item"><div class="cascade-dot synced"></div><div class="cascade-name">Screenplay</div><div class="cascade-desc">Source of truth</div></div>
+          <div class="cascade-item"><div class="cascade-dot stale"></div><div class="cascade-name">Directorial Map</div><div class="cascade-desc">Stale &mdash; script changed</div></div>
+          <div class="cascade-item"><div class="cascade-dot stale"></div><div class="cascade-name">Prompts</div><div class="cascade-desc">Stale &mdash; direction outdated</div></div>
+          <div class="cascade-item"><div class="cascade-dot check"></div><div class="cascade-name">Storyboard</div><div class="cascade-desc">May need update</div></div>
+          <div class="cascade-item"><div class="cascade-dot check"></div><div class="cascade-name">Assembly</div><div class="cascade-desc">Check needed</div></div>
+          <div class="cascade-item"><div class="cascade-dot synced"></div><div class="cascade-name">XML Timeline</div><div class="cascade-desc">Synced with last assembly</div></div>
+        </div>
+
+        <!-- Learning loop -->
+        <div>
+          <div class="sp-block-title" style="margin-bottom:18px">Self-learning loop</div>
+          <div class="services-grid" style="grid-template-columns:1fr 1fr;border:1px solid var(--border)">
+            <div class="service-box" style="padding:24px 22px"><div class="number">01</div><div class="title" style="font-size:16px">Collect</div><div class="text" style="font-size:13px">Every finding is logged with severity and timestamp.</div></div>
+            <div class="service-box" style="padding:24px 22px;border-left:1px solid var(--border)"><div class="number">02</div><div class="title" style="font-size:16px">Detect</div><div class="text" style="font-size:13px">Same issue 3+ times &rarr; weighted pattern.</div></div>
+            <div class="service-box" style="padding:24px 22px;border-top:1px solid var(--border)"><div class="number">03</div><div class="title" style="font-size:16px">Propose</div><div class="text" style="font-size:13px">Which doc to update, which section, what to write, confidence score.</div></div>
+            <div class="service-box" style="padding:24px 22px;border-left:1px solid var(--border);border-top:1px solid var(--border)"><div class="number">04</div><div class="title" style="font-size:16px">Approve</div><div class="text" style="font-size:13px">Human accepts, rejects, or defers. Agent only edits on explicit approval.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 10. WHO IT'S FOR                           -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section section-border section-glow glow-indigo">
+  <div class="container">
+    <div style="margin-bottom:48px;max-width:900px">
+      <div class="label-text reveal-up">Who it's for</div>
+      <h2 class="section-title reveal-up delay-1">Built for<br>solo directors first.</h2>
+      <p class="section-subtitle reveal-up delay-2" style="margin-top:24px">Maulstick is built for the person who ships a whole film alone or with a handful of collaborators. Everything else scales up from there.</p>
+    </div>
+
+    <!-- Primary user highlighted -->
+    <div class="reveal-up delay-3" style="border:1px solid rgba(255,106,58,.3);background:rgba(255,106,58,.04);padding:40px 36px;margin-bottom:48px;border-radius:2px">
+      <div style="font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:500">Primary user</div>
+      <h3 style="font-family:var(--font-heading);font-size:clamp(28px,3.5vw,44px);font-weight:500;letter-spacing:-0.03em;line-height:1.1;margin-bottom:16px">Solo AI Directors</h3>
+      <p style="font-size:15px;color:rgba(255,255,255,.8);max-width:760px;line-height:1.7">Execute a feature-scale vision without a crew. Every department &mdash; script, direction, color, sound &mdash; lives as a file you control. Move from one-off prompt experiments to a structured, repeatable pipeline with consistency, versioning, and reusable Bibles across projects.</p>
+    </div>
+
+    <!-- Secondary users -->
+    <div class="label-text reveal-up" style="margin-bottom:20px">Also serves</div>
+    <div class="services-grid services-grid-4 reveal-up delay-3">
+      <div class="service-box"><div class="number">02</div><div class="title">Production Studios</div><div class="text">Standardize in-house output. Cut pre-production time, centralize creative guidelines, keep every project aligned with house style.</div></div>
+      <div class="service-box"><div class="number">03</div><div class="title">Screenwriters</div><div class="text">See the script as shots, boards, and rough cuts before the pitch. Validate tone, pacing, and visual language while the page is still open.</div></div>
+      <div class="service-box"><div class="number">04</div><div class="title">Producers</div><div class="text">Predictable timelines, traceable dependencies, and a single source of truth. Know exactly what changes when the script changes.</div></div>
+      <div class="service-box"><div class="number">05</div><div class="title">Ad Agencies</div><div class="text">Brief to delivery in days, not weeks. One concept, four format cuts, consistent visual DNA across every asset.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 11. WHERE WE FIT                           -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="section section-border section-glow glow-teal">
+  <div class="container">
+    <div style="margin-bottom:56px;max-width:900px">
+      <div class="label-text reveal-up">Market Map</div>
+      <h2 class="section-title reveal-up delay-1">Where Maulstick sits<br>in the landscape.</h2>
+      <p class="section-subtitle reveal-up delay-2" style="margin-top:24px">The AI video stack spans several distinct layers. Maulstick operates in a specific one &mdash; the pipeline layer between generation models and professional editing. Below are the neighbours and how the scope of each relates to ours.</p>
+    </div>
+
+    <div class="fit-grid reveal-up delay-3">
+      <div class="fit-cell">
+        <div class="fit-category">Layer 1</div>
+        <div class="fit-name">Generation models</div>
+        <div class="fit-examples">Runway, Kling, Flux, Sora, Veo, Seedance, Wan, Reve&hellip;</div>
+        <div class="fit-position">These are the engines Maulstick calls. We do not train our own models &mdash; we orchestrate existing ones, translating a shot description into the dialect each model understands.</div>
+      </div>
+      <div class="fit-cell">
+        <div class="fit-category">Layer 2</div>
+        <div class="fit-name">Templated AI video platforms</div>
+        <div class="fit-examples">End-to-end platforms with preset pipelines, stock avatars, canned transitions.</div>
+        <div class="fit-position">These ship fast workflows for short-form and social content. Our focus is narrative film with a custom Bible, style lock, and NLE handoff &mdash; so the overlap is partial and the target audience is different.</div>
+      </div>
+      <div class="fit-cell">
+        <div class="fit-category">Layer 3</div>
+        <div class="fit-name">AI storyboarding &amp; pre-viz</div>
+        <div class="fit-examples">Board-only tools that turn a script into visual panels.</div>
+        <div class="fit-position">Specialised in one phase of pre-production. Maulstick includes storyboarding as one of seventeen phases and continues past the panel into generation, assembly, and timeline export.</div>
+      </div>
+      <div class="fit-cell">
+        <div class="fit-category">Layer 4</div>
+        <div class="fit-name">Ad-hoc tool chain</div>
+        <div class="fit-examples">ComfyUI, prompt docs, spreadsheets, reference folders, Frame.io, NLE plugins &mdash; glued together by hand.</div>
+        <div class="fit-position">The working baseline for most AI film teams today. Maulstick replaces the glue layer between these tools with a single pipeline, while still calling many of the same underlying generators.</div>
+      </div>
+    </div>
+
+    <!-- Comparison table -->
+    <div style="margin-top:80px">
+      <div class="label-text reveal-up">What a pipeline changes</div>
+      <h3 class="text-large reveal-up delay-1" style="margin-bottom:24px;max-width:900px">Working without a pipeline, and working with one.</h3>
+      <p class="section-subtitle reveal-up delay-2" style="margin-top:12px;margin-bottom:40px">Directional estimates from internal runs, not a benchmark. Assumes a skilled solo creator or a 2&ndash;3 person team. The left column describes AI image and video tools used without a shared file system, change detection, or structured review.</p>
+
+      <div class="reveal-up delay-3" style="border:1px solid var(--border);border-radius:4px;overflow:hidden">
+        <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 0.7fr;gap:0;background:var(--bg-2);font-family:var(--font-heading);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--secondary);font-weight:500">
+          <div style="padding:20px 28px">Scenario / Metric</div>
+          <div style="padding:20px 20px">Ad-hoc AI stack</div>
+          <div style="padding:20px 20px;color:var(--white)">Maulstick</div>
+          <div style="padding:20px 20px;color:var(--accent);text-align:right">Gain</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 0.7fr;gap:0;border-top:1px solid var(--border)">
+          <div style="padding:22px 28px;font-family:var(--font-heading);font-weight:500;font-size:15px">Short film (3&ndash;5 min)<div style="font-size:12px;color:var(--secondary);font-weight:400;margin-top:4px;font-family:var(--font-body);letter-spacing:0;text-transform:none">script &rarr; delivered cut</div></div>
+          <div style="padding:22px 20px;font-size:14px;color:rgba(255,255,255,.7)">1&ndash;2 weeks</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--white)">3&ndash;4 days</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--accent);text-align:right;font-weight:500">~3&times;</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 0.7fr;gap:0;border-top:1px solid var(--border)">
+          <div style="padding:22px 28px;font-family:var(--font-heading);font-weight:500;font-size:15px">Ad campaign<div style="font-size:12px;color:var(--secondary);font-weight:400;margin-top:4px;font-family:var(--font-body);letter-spacing:0;text-transform:none">6s / 15s / 30s / 60s cuts of one concept</div></div>
+          <div style="padding:22px 20px;font-size:14px;color:rgba(255,255,255,.7)">2&ndash;4 weeks</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--white)">2&ndash;4 days</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--accent);text-align:right;font-weight:500">~7&times;</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 0.7fr;gap:0;border-top:1px solid var(--border)">
+          <div style="padding:22px 28px;font-family:var(--font-heading);font-weight:500;font-size:15px">10-min episodic pilot<div style="font-size:12px;color:var(--secondary);font-weight:400;margin-top:4px;font-family:var(--font-body);letter-spacing:0;text-transform:none">2&ndash;3 person team</div></div>
+          <div style="padding:22px 20px;font-size:14px;color:rgba(255,255,255,.7)">3&ndash;4 months</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--white)">3&ndash;4 weeks</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--accent);text-align:right;font-weight:500">~4&times;</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 0.7fr;gap:0;border-top:1px solid var(--border)">
+          <div style="padding:22px 28px;font-family:var(--font-heading);font-weight:500;font-size:15px">Storyboard for 15-min script<div style="font-size:12px;color:var(--secondary);font-weight:400;margin-top:4px;font-family:var(--font-body);letter-spacing:0;text-transform:none">~120 shots, full visual pass</div></div>
+          <div style="padding:22px 20px;font-size:14px;color:rgba(255,255,255,.7)">1&ndash;2 weeks</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--white)">1 day</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--accent);text-align:right;font-weight:500">~10&times;</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 0.7fr;gap:0;border-top:1px solid var(--border)">
+          <div style="padding:22px 28px;font-family:var(--font-heading);font-weight:500;font-size:15px">Revision round<div style="font-size:12px;color:var(--secondary);font-weight:400;margin-top:4px;font-family:var(--font-body);letter-spacing:0;text-transform:none">director note &rarr; cascade update</div></div>
+          <div style="padding:22px 20px;font-size:14px;color:rgba(255,255,255,.7)">2&ndash;5 days</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--white)">2&ndash;4 hours</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--accent);text-align:right;font-weight:500">~10&times;</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 0.7fr;gap:0;border-top:1px solid var(--border)">
+          <div style="padding:22px 28px;font-family:var(--font-heading);font-weight:500;font-size:15px">Character consistency<div style="font-size:12px;color:var(--secondary);font-weight:400;margin-top:4px;font-family:var(--font-body);letter-spacing:0;text-transform:none">across 100+ shots</div></div>
+          <div style="padding:22px 20px;font-size:14px;color:rgba(255,255,255,.7)">Manual ref tracking</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--white)">Automatic from Bible</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--accent);text-align:right;font-weight:500">qualitative</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 0.7fr;gap:0;border-top:1px solid var(--border)">
+          <div style="padding:22px 28px;font-family:var(--font-heading);font-weight:500;font-size:15px">Script &rarr; editor timeline<div style="font-size:12px;color:var(--secondary);font-weight:400;margin-top:4px;font-family:var(--font-body);letter-spacing:0;text-transform:none">conform to Premiere / DaVinci</div></div>
+          <div style="padding:22px 20px;font-size:14px;color:rgba(255,255,255,.7)">Manual conform</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--white)">One-click XML export</div>
+          <div style="padding:22px 20px;font-size:14px;color:var(--accent);text-align:right;font-weight:500">~20&times;</div>
+        </div>
+      </div>
+      <p class="reveal-up delay-3" style="margin-top:20px;font-size:11px;color:var(--secondary);letter-spacing:0.5px;line-height:1.7">Gain factors are directional averages from internal production runs. Actual speedup depends on project complexity, style-lock difficulty, and how early the Bible is finalized. Quality comparisons assume equivalent creative bar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">Maulstick</div>
+    <p>v3.31 &middot; April 2026 &middot; 17 phases &middot; 5 formats &middot; Built on Obsidian + Claude</p>
+  </div>
+</footer>
+
+<script src="assets/vendor/jquery-3.7.1.min.js"></script>
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/SplitText.min.js"></script>
+<script>
+(function(){
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  document.querySelectorAll('.reveal-up').forEach(el => {
+    const delay = el.classList.contains('delay-1') ? 0.1 :
+                  el.classList.contains('delay-2') ? 0.2 :
+                  el.classList.contains('delay-3') ? 0.3 :
+                  el.classList.contains('delay-4') ? 0.4 : 0;
+    gsap.from(el, {
+      y: 60,
+      opacity: 0,
+      duration: 1,
+      delay: delay,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+    });
+  });
+
+  document.querySelectorAll('.section-title, .cta-title').forEach(title => {
+    const split = new SplitText(title, { type: 'chars, words' });
+    gsap.from(split.chars, {
+      y: 40,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.02,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: title, start: 'top 85%', toggleActions: 'play none none none' }
+    });
+  });
+
+  document.querySelectorAll('.services-grid').forEach(grid => {
+    gsap.from(grid.querySelectorAll('.service-box'), {
+      y: 40,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: grid, start: 'top 80%' }
+    });
+  });
+
+  gsap.from('.debate-item', {
+    y: 30,
+    opacity: 0,
+    duration: 0.5,
+    stagger: 0.08,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.debate-grid', start: 'top 80%' }
+  });
+
+  gsap.from('.cascade-item', {
+    x: -20,
+    opacity: 0,
+    duration: 0.4,
+    stagger: 0.08,
+    ease: 'power2.out',
+    scrollTrigger: { trigger: '.cascade-item', start: 'top 80%' }
+  });
+
+  gsap.from('.fit-cell', {
+    y: 30,
+    opacity: 0,
+    duration: 0.5,
+    stagger: 0.08,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.fit-grid', start: 'top 80%' }
+  });
+
+  document.querySelectorAll('.service-box[data-hover-img]').forEach(box => {
+    box.style.setProperty('--hover-img', 'url(' + box.dataset.hoverImg + ')');
+  });
+
+})();
+</script>
+</body>
+</html>
