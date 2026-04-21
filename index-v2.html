@@ -490,6 +490,54 @@ a { color: inherit; text-decoration: none; }
   .services-grid { gap: 16px; }
   .showcase-name { font-size: 28px !important; }
 }
+
+/* ═══════════════════════════════════════════ */
+/* MOBILE — 3-COL & INNER GRIDS (v2 patch)    */
+/* ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* PRODUCT (File System / Human / AI Agent) + MARKET TIMING 3-col */
+  .services-grid[style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Self-Learning Loop — 2x2 becomes 1x4 */
+  .services-grid[style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  .services-grid[style*="grid-template-columns:1fr 1fr"] .service-box {
+    border-left: none !important;
+    border-top: 1px solid var(--border) !important;
+  }
+  .services-grid[style*="grid-template-columns:1fr 1fr"] .service-box:first-child {
+    border-top: none !important;
+  }
+
+  /* Split (Cascade + Self-Learning wrapper) — extra gap after stacking */
+  .split[style*="grid-template-columns:1fr 1fr"] {
+    gap: 56px !important;
+  }
+
+  /* Debate Engine section-header — force 1-col, shrink image to comfortable height */
+  .section-header[style*="grid-template-columns:1fr 1.4fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .section-header[style*="grid-template-columns:1fr 1.4fr"] img {
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  /* Sketch/Render pair (1fr 1fr) → single column on mobile */
+  .card-portrait [style*="grid-template-columns:1fr 1fr"],
+  [style*="display:grid"][style*="grid-template-columns:1fr 1fr;gap"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Cascade name min-width would cause horizontal overflow on narrow screens */
+  .cascade-item { flex-wrap: wrap; }
+  .cascade-desc { flex-basis: 100%; margin-left: 28px; }
+}
 </style>
 </head>
 <body>
