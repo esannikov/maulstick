@@ -131,7 +131,7 @@ img{max-width:100%;display:block}
 /* SHOWCASE */
 .showcase-block{margin-bottom:64px}
 .showcase-block:last-child{margin-bottom:0}
-.showcase-header{display:flex;align-items:baseline;gap:18px;margin-bottom:18px;flex-wrap:wrap}
+.showcase-header{display:flex;align-items:center;gap:18px;margin-bottom:18px;flex-wrap:wrap}
 .showcase-name{font-family:var(--font-h);font-size:clamp(26px,4vw,42px);font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--white)}
 .showcase-status{display:inline-flex;align-items:center;gap:8px;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;font-weight:500;padding:5px 10px;border:1px solid rgba(255,106,58,.3);border-radius:2px;background:rgba(255,106,58,.06)}
 .showcase-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
@@ -195,6 +195,7 @@ img{max-width:100%;display:block}
 
 /* QUALITY GRID */
 .q-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.learning-grid{align-items:start}
 .quality-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:stretch}
 .quality-stack{display:grid;grid-template-rows:auto minmax(0,1fr);gap:24px;height:100%;min-width:0}
 .quality-layout>.q-card{min-width:0}
@@ -614,7 +615,7 @@ img{max-width:100%;display:block}
       </div>
     </div>
 
-    <div class="q-grid">
+    <div class="q-grid learning-grid">
 
       <div class="q-card reveal-up">
         <div class="q-eyebrow">External memory &middot; Radar</div>
@@ -696,7 +697,7 @@ img{max-width:100%;display:block}
         <div style="padding:22px"><div class="card-title">Sketch &rarr; full render</div><div class="card-text">Storyboards in two passes. Left: cheap rough sketch for composition. Right: full render with the look from Style.md. Both run on 30+ models including Flux, Reve, Kling, Wan, Seedance, and Veo.</div></div>
       </div>
       <div class="card-portrait">
-        <img src="assets/images/cut3.webp" alt="Editor Handoff" loading="lazy">
+        <img src="assets/images/editor-timeline.png" alt="Editor Handoff" loading="lazy">
         <div style="padding:22px"><div class="card-title">Timeline, not footage</div><div class="card-text">What comes out is a timeline, not a folder of clips. XML / FCPXML export lands cuts, durations, and layers intact in Premiere or DaVinci.</div></div>
       </div>
     </div>
