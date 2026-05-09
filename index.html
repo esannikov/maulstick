@@ -135,7 +135,7 @@ img{max-width:100%;display:block}
 .showcase-name{font-family:var(--font-h);font-size:clamp(26px,4vw,42px);font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--white)}
 .showcase-status{display:inline-flex;align-items:center;gap:8px;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;font-weight:500;padding:5px 10px;border:1px solid rgba(255,106,58,.3);border-radius:2px;background:rgba(255,106,58,.06)}
 .showcase-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
-.showcase-meta{font-size:12px;color:var(--secondary);letter-spacing:1.5px;text-transform:uppercase;font-weight:500;margin-left:auto}
+.showcase-meta{font-size:12px;color:var(--secondary);letter-spacing:1.5px;text-transform:uppercase;font-weight:500}
 .showcase-grid{display:grid;gap:2px}
 .showcase-grid img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease,filter .3s ease}
 .showcase-grid>div{overflow:hidden;position:relative;background:var(--bg-2)}
@@ -146,7 +146,7 @@ img{max-width:100%;display:block}
 .showcase-tile-h{aspect-ratio:16/9}
 .showcase-tile-s{aspect-ratio:1/1}
 @media(max-width:900px){.showcase-grid-4{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.showcase-grid-4{grid-template-columns:repeat(2,1fr)}.showcase-grid-3{grid-template-columns:repeat(2,1fr)}.showcase-block{margin-bottom:48px}.showcase-meta{margin-left:0;width:100%}}
+@media(max-width:600px){.showcase-grid-4{grid-template-columns:repeat(2,1fr)}.showcase-grid-3{grid-template-columns:repeat(2,1fr)}.showcase-block{margin-bottom:48px}}
 .showcase-hide-mobile{display:block}
 @media(max-width:600px){.showcase-hide-mobile{display:none}}
 .showcase-note{margin-top:14px;font-size:12px;color:var(--secondary);letter-spacing:.3px}
@@ -306,13 +306,13 @@ img{max-width:100%;display:block}
   </div>
 </section>
 
-<!-- ═══ 2. WHO IT'S FOR ═══ -->
+<!-- ═══ 2. WHAT IT SOLVES ═══ -->
 <section class="section section-border section-glow glow-indigo">
   <div class="container">
     <div style="margin-bottom:40px;max-width:920px">
-      <div class="label-text reveal-up">Who it's for</div>
-      <h2 class="section-title reveal-up">Built for<br>solo directors first.</h2>
-      <p class="section-subtitle reveal-up" style="margin-top:24px">It's made for the person who finishes a whole film alone, or with two or three collaborators. Everything else scales out from that base.</p>
+      <div class="label-text reveal-up">What it solves</div>
+      <h2 class="section-title reveal-up">Taming the chaos<br>of AI generation.</h2>
+      <p class="section-subtitle reveal-up" style="margin-top:24px">AI generation is unpredictable on its own. Maulstick is the structure that keeps a project predictable enough to finish, without flattening what makes AI worth using in the first place.</p>
     </div>
 
     <div class="reveal-up" style="border:1px solid rgba(255,106,58,.3);background:rgba(255,106,58,.04);padding:36px 32px;margin-bottom:40px;border-radius:2px">
@@ -368,7 +368,7 @@ img{max-width:100%;display:block}
         <span class="showcase-status">In development</span>
         <div class="showcase-meta">Vertical mini-series &middot; 9:16 &middot; 10 &times; 3 min</div>
       </div>
-      <p class="showcase-synopsis">A dying Nikola Tesla remembers ten moments when his inner vision met the outer world, each time finding the world wasn't ready.</p>
+      <p class="showcase-synopsis">An aging Nikola Tesla looks back at ten moments when his inner vision met the outer world, each time finding the world wasn't ready.</p>
       <div class="showcase-grid showcase-grid-4">
         <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/tesla6.jpg" alt="" loading="lazy"></div>
         <div class="showcase-tile-v"><img src="assets/images/showcase/TESLA/tesla7.jpg" alt="" loading="lazy"></div>
@@ -583,10 +583,15 @@ img{max-width:100%;display:block}
 <!-- ═══ 8. SELF-LEARNING SYSTEM ═══ -->
 <section class="section section-border section-glow glow-violet" id="learning">
   <div class="container">
-    <div style="margin-bottom:48px;max-width:920px">
-      <div class="label-text reveal-up">Self-learning system</div>
-      <h2 class="section-title reveal-up">Memory that<br>compounds.</h2>
-      <p class="section-subtitle reveal-up" style="margin-top:24px">The agent gets smarter on its own. External research keeps the wiki current; internal pattern memory turns repeated issues into accepted rules.</p>
+    <div class="section-header">
+      <div>
+        <div class="label-text reveal-up">Self-learning system</div>
+        <h2 class="section-title reveal-up">Memory that<br>compounds.</h2>
+        <p class="section-subtitle reveal-up" style="margin-top:24px">The agent gets smarter on its own. External research keeps the wiki current; internal pattern memory turns repeated issues into accepted rules.</p>
+      </div>
+      <div class="reveal-up">
+        <img src="assets/images/radar.jpg" alt="Radar scanning 155 sources every day" loading="lazy" style="width:100%;display:block;border-radius:4px;mask-image:radial-gradient(ellipse 88% 78% at 50% 50%,black 45%,transparent 88%);-webkit-mask-image:radial-gradient(ellipse 88% 78% at 50% 50%,black 45%,transparent 88%)">
+      </div>
     </div>
 
     <div class="q-grid">
