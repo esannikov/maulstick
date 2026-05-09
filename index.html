@@ -536,8 +536,9 @@ img{max-width:100%;display:block}
 
       <div class="q-card reveal-up">
         <div class="q-eyebrow">B &middot; Debate Engine</div>
-        <div class="q-head">Where rules end, interpretation begins.</div>
-        <div class="q-text">Five AI reviewers read the script from different angles: comedy, dialogue, structure, audience, narration. A judge model weighs the arguments and gives one scored verdict.</div>
+        <div class="q-head">Debate tests choices.</div>
+        <div class="q-text">Rules catch errors. Debate Engine tests interpretation. Craft reviewers argue from different perspectives; a judge model gives one advisory verdict.</div>
+        <img src="assets/images/debate.jpg" alt="Debate Engine" loading="lazy" style="width:100%;display:block;border-radius:4px;margin-bottom:18px;mask-image:radial-gradient(ellipse 88% 78% at 50% 44%,black 45%,transparent 85%);-webkit-mask-image:radial-gradient(ellipse 88% 78% at 50% 44%,black 45%,transparent 85%)">
         <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px">
           <div style="padding:10px 8px;border:1px solid var(--border);text-align:center"><div style="color:var(--accent);font-size:10px;letter-spacing:1.5px;font-weight:500">CM</div><div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">Comedy</div></div>
           <div style="padding:10px 8px;border:1px solid var(--border);text-align:center"><div style="color:var(--accent);font-size:10px;letter-spacing:1.5px;font-weight:500">DL</div><div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">Dialogue</div></div>
@@ -545,7 +546,7 @@ img{max-width:100%;display:block}
           <div style="padding:10px 8px;border:1px solid var(--border);text-align:center"><div style="color:var(--accent);font-size:10px;letter-spacing:1.5px;font-weight:500">AU</div><div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">Audience</div></div>
           <div style="padding:10px 8px;border:1px solid var(--border);text-align:center"><div style="color:var(--accent);font-size:10px;letter-spacing:1.5px;font-weight:500">NR</div><div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">Narration</div></div>
         </div>
-        <div style="margin-top:10px;padding:12px 16px;background:rgba(255,106,58,.06);border:1px solid rgba(255,106,58,.25);border-radius:2px;font-size:12px;color:rgba(255,255,255,.75);line-height:1.5"><b style="color:var(--accent);font-weight:500">+ JUDGE</b> &mdash; weighs all five perspectives and outputs a single scored verdict with per-dimension feedback.</div>
+        <div style="margin-top:10px;padding:12px 16px;background:rgba(255,106,58,.06);border:1px solid rgba(255,106,58,.25);border-radius:2px;font-size:12px;color:rgba(255,255,255,.75);line-height:1.5"><b style="color:var(--accent);font-weight:500">+ JUDGE</b> &mdash; weighs the perspectives and returns a scored verdict. The verdict is advisory. The director decides.</div>
       </div>
 
       <div class="q-card reveal-up">
@@ -688,61 +689,18 @@ img{max-width:100%;display:block}
   <div class="container">
     <div style="margin-bottom:48px;max-width:920px">
       <div class="label-text reveal-up">What the pipeline changes</div>
-      <h2 class="section-title reveal-up">Without a pipeline,<br>and with one.</h2>
-      <p class="section-subtitle reveal-up" style="margin-top:24px">Rough numbers from our own runs. Left: same job with scattered tools. Right: same job inside Maulstick.</p>
+      <h2 class="section-title reveal-up">It changes<br>the unit of work.</h2>
+      <p class="section-subtitle reveal-up" style="margin-top:24px">Without a pipeline, you manage prompts, clips, folders, chats, and memory by hand. With Maulstick, you manage production state.</p>
     </div>
 
-    <div class="cmp-table reveal-up">
-      <div class="cmp-row cmp-head">
-        <div>Scenario / Metric</div>
-        <div>Ad-hoc AI stack</div>
-        <div class="cmp-ms">Maulstick</div>
-        <div class="cmp-gain">Gain</div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-cell" data-label="Scenario"><div class="cmp-scenario">Short film (3&ndash;5 min)</div><div class="cmp-sub">script &rarr; delivered cut</div></div>
-        <div class="cmp-cell cmp-old" data-label="Ad-hoc">1&ndash;2 weeks</div>
-        <div class="cmp-cell cmp-new" data-label="Maulstick">3&ndash;4 days</div>
-        <div class="cmp-cell cmp-gain" data-label="Gain">~3&times;</div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-cell" data-label="Scenario"><div class="cmp-scenario">Ad campaign</div><div class="cmp-sub">6s / 15s / 30s / 60s cuts of one concept</div></div>
-        <div class="cmp-cell cmp-old" data-label="Ad-hoc">2&ndash;4 weeks</div>
-        <div class="cmp-cell cmp-new" data-label="Maulstick">2&ndash;4 days</div>
-        <div class="cmp-cell cmp-gain" data-label="Gain">~7&times;</div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-cell" data-label="Scenario"><div class="cmp-scenario">10-min episodic pilot</div><div class="cmp-sub">2&ndash;3 person team</div></div>
-        <div class="cmp-cell cmp-old" data-label="Ad-hoc">3&ndash;4 months</div>
-        <div class="cmp-cell cmp-new" data-label="Maulstick">3&ndash;4 weeks</div>
-        <div class="cmp-cell cmp-gain" data-label="Gain">~4&times;</div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-cell" data-label="Scenario"><div class="cmp-scenario">Storyboard for 15-min script</div><div class="cmp-sub">~120 shots, full visual pass</div></div>
-        <div class="cmp-cell cmp-old" data-label="Ad-hoc">1&ndash;2 weeks</div>
-        <div class="cmp-cell cmp-new" data-label="Maulstick">1 day</div>
-        <div class="cmp-cell cmp-gain" data-label="Gain">~10&times;</div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-cell" data-label="Scenario"><div class="cmp-scenario">Revision round</div><div class="cmp-sub">director note &rarr; cascade update</div></div>
-        <div class="cmp-cell cmp-old" data-label="Ad-hoc">2&ndash;5 days</div>
-        <div class="cmp-cell cmp-new" data-label="Maulstick">2&ndash;4 hours</div>
-        <div class="cmp-cell cmp-gain" data-label="Gain">~10&times;</div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-cell" data-label="Scenario"><div class="cmp-scenario">Character consistency</div><div class="cmp-sub">across 100+ shots</div></div>
-        <div class="cmp-cell cmp-old" data-label="Ad-hoc">Manual ref tracking</div>
-        <div class="cmp-cell cmp-new" data-label="Maulstick">Automatic from Bible</div>
-        <div class="cmp-cell cmp-gain" data-label="Gain">qualitative</div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-cell" data-label="Scenario"><div class="cmp-scenario">Script &rarr; editor timeline</div><div class="cmp-sub">conform to Premiere / DaVinci</div></div>
-        <div class="cmp-cell cmp-old" data-label="Ad-hoc">Manual conform</div>
-        <div class="cmp-cell cmp-new" data-label="Maulstick">One-click XML export</div>
-        <div class="cmp-cell cmp-gain" data-label="Gain">~20&times;</div>
-      </div>
+    <div class="services-grid services-grid-3 reveal-up">
+      <div class="service-box"><div class="number">01</div><div class="title">Prompts inherit from the Bible</div><div class="text">Style, characters, rules, and format come from project files.</div></div>
+      <div class="service-box"><div class="number">02</div><div class="title">Script changes create tasks</div><div class="text">Direction, prompts, storyboard, subtitles, assembly, and XML can be marked stale or synced.</div></div>
+      <div class="service-box"><div class="number">03</div><div class="title">Review happens before generation</div><div class="text">Continuity, shot grammar, world state, and interpretation are checked before render cycles.</div></div>
+      <div class="service-box"><div class="number">04</div><div class="title">Storyboard and assembly stay aligned</div><div class="text">Canvas, production docs, rough cut, subtitles, and editor export describe the same sequence.</div></div>
+      <div class="service-box"><div class="number">05</div><div class="title">Craft choices stay traceable</div><div class="text">A shot keeps its reason: emotion, lens, movement, composition, light, rhythm, and source.</div></div>
+      <div class="service-box"><div class="number">06</div><div class="title">The output is a timeline</div><div class="text">The final handoff is an editable editor timeline, not a folder of disconnected clips.</div></div>
     </div>
-    <p class="reveal-up" style="margin-top:18px;font-size:11px;color:var(--secondary);letter-spacing:.5px;line-height:1.7">Averages from our own runs. Real numbers vary with project complexity, style-lock difficulty, and Bible readiness. Same creative ambition on both sides.</p>
   </div>
 </section>
 
@@ -868,4 +826,3 @@ img{max-width:100%;display:block}
 </script>
 </body>
 </html>
-
