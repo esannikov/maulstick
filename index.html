@@ -195,11 +195,24 @@ img{max-width:100%;display:block}
 
 /* QUALITY GRID */
 .q-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-@media(max-width:900px){.q-grid{grid-template-columns:1fr}}
+.quality-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:stretch}
+.quality-stack{display:grid;grid-template-rows:auto minmax(0,1fr);gap:24px;height:100%;min-width:0}
+.quality-layout>.q-card{min-width:0}
+@media(max-width:900px){.q-grid,.quality-layout{grid-template-columns:1fr}.quality-stack{grid-template-rows:auto}}
 .q-card{padding:32px 28px;border:1px solid var(--border);background:rgba(255,255,255,.015);border-radius:2px}
+.q-card-compact{padding:26px 28px}
 .q-card .q-eyebrow{font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;font-weight:500;margin-bottom:12px}
 .q-card .q-head{font-family:var(--font-h);font-size:22px;font-weight:500;letter-spacing:-.02em;line-height:1.15;margin-bottom:14px}
 .q-card .q-text{font-size:14px;color:var(--secondary);line-height:1.7;margin-bottom:18px}
+.quality-stage-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-size:12px}
+.quality-stage-box{padding:12px;border:1px solid var(--border);min-width:0}
+.quality-stage-label{color:var(--accent);font-size:10px;letter-spacing:1.5px;margin-bottom:6px}
+.quality-stage-text{color:rgba(255,255,255,.75);line-height:1.5}
+.debate-role-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.debate-role{padding:10px 8px;border:1px solid var(--border);text-align:center;min-width:0}
+.debate-role-code{color:var(--accent);font-size:10px;letter-spacing:1.5px;font-weight:500}
+.debate-role-name{font-size:11px;color:rgba(255,255,255,.7);margin-top:4px}
+@media(max-width:620px){.quality-stage-grid{grid-template-columns:1fr}.debate-role-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.q-card{padding:28px 24px}.q-card-compact{padding:24px}}
 
 /* SP block */
 .sp-block-title{font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;color:var(--accent)}
@@ -215,6 +228,12 @@ img{max-width:100%;display:block}
 .fit-examples{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:14px;line-height:1.6}
 .fit-position{font-size:13px;color:var(--white);line-height:1.7;padding-top:14px;border-top:1px solid var(--border)}
 .fit-position b{color:var(--accent);font-weight:500}
+.fit-layer-1{--layer-color:#36d7cf}
+.fit-layer-2{--layer-color:#ff8a5c}
+.fit-layer-3{--layer-color:#a5a7ff}
+.fit-layer-4{--layer-color:#f2b84b}
+.fit-cell .fit-category{color:color-mix(in srgb,var(--layer-color, var(--secondary)) 78%,var(--secondary));letter-spacing:2.5px}
+.fit-cell .fit-name{color:var(--layer-color,var(--white))}
 
 /* COMPARISON TABLE — desktop grid + mobile cards */
 .cmp-table{border:1px solid var(--border);border-radius:4px;overflow:hidden}
@@ -521,16 +540,44 @@ img{max-width:100%;display:block}
       <p class="section-subtitle reveal-up" style="margin-top:24px">Generation costs money. Fixing problems after the render costs more. Four overlapping systems catch breaks: rule checks, interpretive review, world-state tracking, feedback loop.</p>
     </div>
 
-    <div class="q-grid">
+    <div class="quality-layout">
 
-      <div class="q-card reveal-up">
-        <div class="q-eyebrow">A &middot; Rule Review</div>
-        <div class="q-head">Automated checks at three stages.</div>
-        <div class="q-text">The earlier a problem shows up, the cheaper it is to fix. Rule checks cover continuity, shot grammar, and technical coherence.</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:12px">
-          <div style="padding:12px;border:1px solid var(--border)"><div style="color:var(--accent);font-size:10px;letter-spacing:1.5px;margin-bottom:6px">SCRIPT</div><div style="color:rgba(255,255,255,.75);line-height:1.5">Continuity, geography, prop tracking, pacing</div></div>
-          <div style="padding:12px;border:1px solid var(--border)"><div style="color:var(--accent);font-size:10px;letter-spacing:1.5px;margin-bottom:6px">DIRECTION</div><div style="color:rgba(255,255,255,.75);line-height:1.5">180&deg; axis, shot sizes, 30&deg; rule, prompts</div></div>
-          <div style="padding:12px;border:1px solid var(--border)"><div style="color:var(--accent);font-size:10px;letter-spacing:1.5px;margin-bottom:6px">FULL</div><div style="color:rgba(255,255,255,.75);line-height:1.5">Audiovisual quality, emotional impact, rhythm</div></div>
+      <div class="quality-stack">
+        <div class="q-card reveal-up">
+          <div class="q-eyebrow">A &middot; Rule Review</div>
+          <div class="q-head">Automated checks at three stages.</div>
+          <div class="q-text">The earlier a problem shows up, the cheaper it is to fix. Rule checks cover continuity, shot grammar, and technical coherence.</div>
+          <div class="quality-stage-grid">
+            <div class="quality-stage-box"><div class="quality-stage-label">SCRIPT</div><div class="quality-stage-text">Continuity, geography, prop tracking, pacing</div></div>
+            <div class="quality-stage-box"><div class="quality-stage-label">DIRECTION</div><div class="quality-stage-text">180&deg; axis, shot sizes, 30&deg; rule, prompts</div></div>
+            <div class="quality-stage-box"><div class="quality-stage-label">FULL</div><div class="quality-stage-text">Audiovisual quality, emotional impact, rhythm</div></div>
+          </div>
+        </div>
+
+        <div class="q-card q-card-compact reveal-up">
+          <div class="q-eyebrow">C &middot; StoryPole &mdash; World State</div>
+          <div class="q-head">Manual tracking breaks.</div>
+          <div class="q-text">StoryPole tracks who is where, who knows what, which objects exist, and which emotional states changed.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 22px">
+            <div>
+              <div class="sp-block-title" style="font-size:11px;color:rgba(165,167,255,.9)">Tracked</div>
+              <div class="sp-tags" style="gap:4px">
+                <span class="sp-tag c1" style="font-size:11px;padding:3px 8px">Locations</span>
+                <span class="sp-tag c1" style="font-size:11px;padding:3px 8px">Inventory</span>
+                <span class="sp-tag c1" style="font-size:11px;padding:3px 8px">Knowledge</span>
+                <span class="sp-tag c1" style="font-size:11px;padding:3px 8px">Emotions</span>
+              </div>
+            </div>
+            <div>
+              <div class="sp-block-title" style="font-size:11px;color:rgba(253,164,175,.9)">Checks</div>
+              <div class="sp-tags" style="gap:4px">
+                <span class="sp-tag hard" style="font-size:11px;padding:3px 8px">Teleportation</span>
+                <span class="sp-tag hard" style="font-size:11px;padding:3px 8px">Ghost objects</span>
+                <span class="sp-tag hard" style="font-size:11px;padding:3px 8px">Impossible knowledge</span>
+                <span class="sp-tag soft" style="font-size:11px;padding:3px 8px">Emotion jumps</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -539,42 +586,14 @@ img{max-width:100%;display:block}
         <div class="q-head">Debate tests choices.</div>
         <div class="q-text">Rules catch errors. Debate Engine tests interpretation. Craft reviewers argue from different perspectives; a judge model gives one advisory verdict.</div>
         <img src="assets/images/debate.jpg" alt="Debate Engine" loading="lazy" style="width:100%;display:block;border-radius:4px;margin-bottom:18px;mask-image:radial-gradient(ellipse 88% 78% at 50% 44%,black 45%,transparent 85%);-webkit-mask-image:radial-gradient(ellipse 88% 78% at 50% 44%,black 45%,transparent 85%)">
-        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px">
-          <div style="padding:10px 8px;border:1px solid var(--border);text-align:center"><div style="color:var(--accent);font-size:10px;letter-spacing:1.5px;font-weight:500">CM</div><div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">Comedy</div></div>
-          <div style="padding:10px 8px;border:1px solid var(--border);text-align:center"><div style="color:var(--accent);font-size:10px;letter-spacing:1.5px;font-weight:500">DL</div><div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">Dialogue</div></div>
-          <div style="padding:10px 8px;border:1px solid var(--border);text-align:center"><div style="color:var(--accent);font-size:10px;letter-spacing:1.5px;font-weight:500">ST</div><div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">Structure</div></div>
-          <div style="padding:10px 8px;border:1px solid var(--border);text-align:center"><div style="color:var(--accent);font-size:10px;letter-spacing:1.5px;font-weight:500">AU</div><div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">Audience</div></div>
-          <div style="padding:10px 8px;border:1px solid var(--border);text-align:center"><div style="color:var(--accent);font-size:10px;letter-spacing:1.5px;font-weight:500">NR</div><div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:4px">Narration</div></div>
+        <div class="debate-role-grid">
+          <div class="debate-role"><div class="debate-role-code">CM</div><div class="debate-role-name">Comedy</div></div>
+          <div class="debate-role"><div class="debate-role-code">DL</div><div class="debate-role-name">Dialogue</div></div>
+          <div class="debate-role"><div class="debate-role-code">ST</div><div class="debate-role-name">Structure</div></div>
+          <div class="debate-role"><div class="debate-role-code">AU</div><div class="debate-role-name">Audience</div></div>
+          <div class="debate-role"><div class="debate-role-code">NR</div><div class="debate-role-name">Narration</div></div>
         </div>
         <div style="margin-top:10px;padding:12px 16px;background:rgba(255,106,58,.06);border:1px solid rgba(255,106,58,.25);border-radius:2px;font-size:12px;color:rgba(255,255,255,.75);line-height:1.5"><b style="color:var(--accent);font-weight:500">+ JUDGE</b> &mdash; weighs the perspectives and returns a scored verdict. The verdict is advisory. The director decides.</div>
-      </div>
-
-      <div class="q-card reveal-up">
-        <div class="q-eyebrow">C &middot; StoryPole &mdash; World State</div>
-        <div class="q-head">After 15 scenes, manual tracking fails.</div>
-        <div class="q-text">StoryPole tracks the world scene by scene: who's where, who knows what, which objects exist. Hard and soft consistency rules flag anything broken.</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 22px">
-          <div>
-            <div class="sp-block-title" style="font-size:11px;color:rgba(165,167,255,.9)">Tracked</div>
-            <div class="sp-tags" style="gap:4px">
-              <span class="sp-tag c1" style="font-size:11px;padding:3px 8px">Locations</span>
-              <span class="sp-tag c1" style="font-size:11px;padding:3px 8px">Inventory</span>
-              <span class="sp-tag c1" style="font-size:11px;padding:3px 8px">Knowledge</span>
-              <span class="sp-tag c1" style="font-size:11px;padding:3px 8px">Emotions (16)</span>
-              <span class="sp-tag c1" style="font-size:11px;padding:3px 8px">Want/need/wound</span>
-            </div>
-          </div>
-          <div>
-            <div class="sp-block-title" style="font-size:11px;color:rgba(253,164,175,.9)">Checks</div>
-            <div class="sp-tags" style="gap:4px">
-              <span class="sp-tag hard" style="font-size:11px;padding:3px 8px">Teleportation</span>
-              <span class="sp-tag hard" style="font-size:11px;padding:3px 8px">Ghost objects</span>
-              <span class="sp-tag hard" style="font-size:11px;padding:3px 8px">Impossible knowledge</span>
-              <span class="sp-tag soft" style="font-size:11px;padding:3px 8px">Unmotivated arc</span>
-              <span class="sp-tag soft" style="font-size:11px;padding:3px 8px">Emotion jumps</span>
-            </div>
-          </div>
-        </div>
       </div>
 
     </div>
@@ -587,7 +606,7 @@ img{max-width:100%;display:block}
     <div class="section-header">
       <div>
         <div class="label-text reveal-up">Self-learning system</div>
-        <h2 class="section-title reveal-up">Memory that<br>compounds.</h2>
+        <h2 class="section-title reveal-up">Memory that<br>learns.</h2>
         <p class="section-subtitle reveal-up" style="margin-top:24px">The agent gets smarter on its own. External research keeps the wiki current; internal pattern memory turns repeated issues into accepted rules.</p>
       </div>
       <div class="reveal-up">
@@ -714,25 +733,25 @@ img{max-width:100%;display:block}
     </div>
 
     <div class="fit-grid reveal-up">
-      <div class="fit-cell">
+      <div class="fit-cell fit-layer-1">
         <div class="fit-category">Layer 1</div>
         <div class="fit-name">Generation models</div>
         <div class="fit-examples">Runway, Kling, Flux, Sora, Veo, Seedance, Wan, Reve&hellip;</div>
         <div class="fit-position">The engines Maulstick calls. We don't train our own. We use existing ones, translating each shot description into the model's dialect.</div>
       </div>
-      <div class="fit-cell">
+      <div class="fit-cell fit-layer-2">
         <div class="fit-category">Layer 2</div>
         <div class="fit-name">Templated AI video platforms</div>
         <div class="fit-examples">End-to-end platforms with preset pipelines, stock avatars, canned transitions.</div>
         <div class="fit-position">Fast workflows for short-form and social content. Our focus is narrative film: custom Bible, locked style, clean NLE handoff. Some overlap, different audience.</div>
       </div>
-      <div class="fit-cell">
+      <div class="fit-cell fit-layer-3">
         <div class="fit-category">Layer 3</div>
         <div class="fit-name">AI storyboarding &amp; pre-viz</div>
         <div class="fit-examples">Board-only tools that turn a script into visual panels.</div>
         <div class="fit-position">Focused on one stage of pre-production. In Maulstick, storyboarding is one of seventeen phases, with generation, assembly, and timeline export downstream.</div>
       </div>
-      <div class="fit-cell">
+      <div class="fit-cell fit-layer-4">
         <div class="fit-category">Layer 4</div>
         <div class="fit-name">Ad-hoc tool chain</div>
         <div class="fit-examples">ComfyUI, prompt docs, spreadsheets, reference folders, Frame.io, NLE plugins &mdash; glued together by hand.</div>
@@ -775,7 +794,7 @@ img{max-width:100%;display:block}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>v3.31 &middot; April 2026 &middot; Built on Obsidian + Claude</span>
+      <span>&middot; April 2026 &middot; Built by Eugene Sannikov and Claude/Codex</span>
       <span>&copy; Maulstick</span>
     </div>
   </div>
